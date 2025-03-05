@@ -14,9 +14,6 @@
   <div class="flashcards-grid">
     @for (card of flashcards(); track card.id) {
     <mat-card class="flashcard-card" (click)="toggleAnswer(card.id)">
-      <mat-card-header>
-        <mat-card-title>{{ card.category || "General" }}</mat-card-title>
-      </mat-card-header>
       <mat-card-content>
         <div class="question">
           <p>{{ card.question }}</p>

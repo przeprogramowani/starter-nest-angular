@@ -1,0 +1,68 @@
+<div class="flashcard-form-container">
+  <h2>Create New Flashcard</h2>
+
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="flashcardForm"
+    class="flashcard-form"
+  >
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Question</mat-label>
+      <textarea
+        matInput
+        formControlName="question"
+        placeholder="Enter your question here"
+        rows="4"
+        required
+      >
+      </textarea>
+      <mat-error
+        *ngIf="
+          flashcardForm.get('question')?.invalid &&
+          flashcardForm.get('question')?.touched
+        "
+      >
+        Question is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Answer</mat-label>
+      <textarea
+        matInput
+        formControlName="answer"
+        placeholder="Enter the answer here"
+        rows="4"
+        required
+      >
+      </textarea>
+      <mat-error
+        *ngIf="
+          flashcardForm.get('answer')?.invalid &&
+          flashcardForm.get('answer')?.touched
+        "
+      >
+        Answer is required
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="error()" class="error-message">
+      {{ error() }}
+    </div>
+
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="flashcardForm.invalid || submitting()"
+      >
+        <ng-container *ngIf="submitting(); else createLabel">
+          <mat-spinner diameter="20" class="spinner-button"></mat-spinner>
+          Submitting...
+        </ng-container>
+        <ng-template #createLabel> Create Flashcard </ng-template>
+      </button>
+    </div>
+  </form>
+</div>
