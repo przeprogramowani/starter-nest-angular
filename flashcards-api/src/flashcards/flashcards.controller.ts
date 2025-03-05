@@ -1,24 +1,34 @@
-import { Controller, Get } from '@nestjs/common';
-import { OpenRouterService } from '../openrouter/openrouter.service';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { FlashcardsService } from './flashcards.service';
+import { CreateFlashcardDto } from './dto/create-flashcard.dto';
+import { UpdateFlashcardDto } from './dto/update-flashcard.dto';
 
 @Controller('flashcards')
 export class FlashcardsController {
-  constructor(
-    private openRouterService: OpenRouterService,
-    private flashcardsService: FlashcardsService,
-  ) {}
+  constructor(private readonly flashcardsService: FlashcardsService) {}
+
+  @Post()
+  create(@Body() createFlashcardDto: CreateFlashcardDto) {
+    return this.flashcardsService.create(createFlashcardDto);
+  }
 
   @Get()
-  async getFlashcards() {
-    try {
-      const flashcards = await this.openRouterService.chatCompletionAsync(
-        'gpt-3.5-turbo',
-        [{ role: 'user', content: 'Q: What is the capital of Poland?' }],
-      );
-      return flashcards;
-    } catch (error) {
-      throw new Error('Error retrieving flashcards: ' + error);
-    }
+  findAll() {
+    return this.flashcardsService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.flashcardsService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateFlashcardDto: UpdateFlashcardDto) {
+    return this.flashcardsService.update(+id, updateFlashcardDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.flashcardsService.remove(+id);
   }
 }

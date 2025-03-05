@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { OpenRouterModule } from '../openrouter/openrouter.module';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { Flashcard } from './entities/flashcard.entity';
 import { FlashcardsController } from './flashcards.controller';
 import { FlashcardsService } from './flashcards.service';
 
 @Module({
-  imports: [OpenRouterModule],
+  imports: [SequelizeModule.forFeature([Flashcard])],
   controllers: [FlashcardsController],
   providers: [FlashcardsService],
 })
