@@ -3,6 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { catchError, EMPTY } from 'rxjs';
@@ -18,6 +19,7 @@ import { Flashcard, FlashcardsService } from '../flashcards.service';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatDividerModule,
+    MatIconModule,
   ],
   templateUrl: './flashcards-list.component.html',
   styleUrl: './flashcards-list.component.scss',
@@ -67,5 +69,32 @@ export class FlashcardsListComponent implements OnInit {
 
   isAnswerVisible(cardId: number): boolean {
     return this.visibleAnswers()[cardId] || false;
+  }
+
+  deleteFlashcard(event: Event, cardId: number): void {
+    // Stop the click event from propagating to the card (which would toggle the answer)
+    event.stopPropagation();
+
+    if (confirm('Are you sure you want to delete this flashcard?')) {
+      this.loading.set(true);
+      this.flashcardsService
+        .remove(cardId)
+        .pipe(
+          catchError((err) => {
+            this.error.set(
+              'Failed to delete flashcard. Please try again later.'
+            );
+            this.loading.set(false);
+            return EMPTY;
+          })
+        )
+        .subscribe(() => {
+          // Update local state to remove the deleted card
+          this.flashcards.update((cards) =>
+            cards.filter((card) => card.id !== cardId)
+          );
+          this.loading.set(false);
+        });
+    }
   }
 }
