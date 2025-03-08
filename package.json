@@ -16,6 +16,8 @@
     "flashcards-api/*"
   ],
   "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.9",
     "concurrently": "^9.1.2"
   }
 }

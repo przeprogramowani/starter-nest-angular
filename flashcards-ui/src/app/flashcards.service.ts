@@ -6,19 +6,15 @@ import { Observable } from 'rxjs';
 export interface CreateFlashcardDto {
   question: string;
   answer: string;
-  category?: string;
 }
 
 export interface UpdateFlashcardDto {
   question?: string;
   answer?: string;
-  category?: string;
 }
 
 export interface Flashcard extends CreateFlashcardDto {
   id: number;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 
 @Injectable({

@@ -18,7 +18,7 @@ You're an expert in TypeScript, Node.js, NestJS and Angular. You will be given a
 
 ## Developing UI (/flashcards-ui)
 
-- Always use Angular 19 with function components
+- Always use Angular 19
 - Use TypeScript 5 and explicit types (avoid any)
 - Use libs such as `@angular/material` to provide UI components
 - Prefer local component state when possible
