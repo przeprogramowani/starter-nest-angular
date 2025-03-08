@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { catchError, EMPTY } from 'rxjs';
-import { Flashcard, FlashcardsService } from '../flashcards.service';
+import { FlashcardsService } from '../flashcards.service';
+import { Difficulty, Flashcard, FlashcardGroup } from '../flashcards.types';
 
 @Component({
   selector: 'app-flashcards-list',
@@ -26,6 +27,7 @@ import { Flashcard, FlashcardsService } from '../flashcards.service';
 })
 export class FlashcardsListComponent implements OnInit {
   flashcards = signal<Flashcard[]>([]);
+  groupedFlashcards = signal<FlashcardGroup[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
   visibleAnswers = signal<Record<number, boolean>>({});
@@ -34,6 +36,23 @@ export class FlashcardsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadFlashcards();
+  }
+
+  private groupFlashcards(cards: Flashcard[]): FlashcardGroup[] {
+    const groups: Record<Difficulty, Flashcard[]> = {
+      [Difficulty.EASY]: [],
+      [Difficulty.NORMAL]: [],
+      [Difficulty.HARD]: [],
+    };
+
+    cards.forEach((card) => {
+      groups[card.difficulty]?.push(card);
+    });
+
+    return Object.entries(groups).map(([difficulty, cards]) => ({
+      difficulty: difficulty as Difficulty,
+      cards,
+    }));
   }
 
   loadFlashcards(): void {
@@ -49,9 +68,9 @@ export class FlashcardsListComponent implements OnInit {
       )
       .subscribe((data) => {
         this.flashcards.set(data);
+        this.groupedFlashcards.set(this.groupFlashcards(data));
         this.loading.set(false);
 
-        // Initialize all answers as hidden
         const answerState: Record<number, boolean> = {};
         data.forEach((card) => {
           answerState[card.id] = false;
@@ -72,7 +91,6 @@ export class FlashcardsListComponent implements OnInit {
   }
 
   deleteFlashcard(event: Event, cardId: number): void {
-    // Stop the click event from propagating to the card (which would toggle the answer)
     event.stopPropagation();
 
     if (confirm('Are you sure you want to delete this flashcard?')) {
@@ -89,10 +107,10 @@ export class FlashcardsListComponent implements OnInit {
           })
         )
         .subscribe(() => {
-          // Update local state to remove the deleted card
           this.flashcards.update((cards) =>
             cards.filter((card) => card.id !== cardId)
           );
+          this.groupedFlashcards.set(this.groupFlashcards(this.flashcards()));
           this.loading.set(false);
         });
     }

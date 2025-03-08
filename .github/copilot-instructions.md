@@ -23,6 +23,7 @@ You're an expert in TypeScript, Node.js, NestJS and Angular. You will be given a
 - Use libs such as `@angular/material` to provide UI components
 - Prefer local component state when possible
 - Use HTTPClient for HTTP requests
+- When referencing a signal, remember to invoke it with `()` to get its value
 
 ## Architecture
 

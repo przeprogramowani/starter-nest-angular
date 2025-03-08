@@ -11,36 +11,43 @@
   } @if (!loading() && flashcards().length === 0) {
   <p>No flashcards found. Create some to get started!</p>
   } @if (flashcards().length > 0) {
-  <div class="flashcards-grid">
-    @for (card of flashcards(); track card.id) {
-    <mat-card class="flashcard-card" (click)="toggleAnswer(card.id)">
-      <mat-card-content>
-        <div class="question">
-          <p>{{ card.question }}</p>
-        </div>
-        @if (isAnswerVisible(card.id)) {
-        <mat-divider></mat-divider>
-        <div class="answer">
-          <p>{{ card.answer }}</p>
-        </div>
-        } @else {
-        <div class="answer-prompt">
-          <p>(Click to reveal answer)</p>
-        </div>
+  <div class="flashcards-groups">
+    @for (group of groupedFlashcards(); track group.difficulty) {
+    <div class="flashcard-group" *ngIf="group.cards.length > 0">
+      <h2 class="group-title">{{ group.difficulty | titlecase }}</h2>
+      <div class="flashcards-grid">
+        @for (card of group.cards; track card.id) {
+        <mat-card class="flashcard-card" (click)="toggleAnswer(card.id)">
+          <mat-card-content>
+            <div class="question">
+              <p>{{ card.question }}</p>
+            </div>
+            @if (isAnswerVisible(card.id)) {
+            <mat-divider></mat-divider>
+            <div class="answer">
+              <p>{{ card.answer }}</p>
+            </div>
+            } @else {
+            <div class="answer-prompt">
+              <p>(Click to reveal answer)</p>
+            </div>
+            }
+          </mat-card-content>
+          <div class="card-actions">
+            <button
+              mat-icon-button
+              color="warn"
+              class="delete-button"
+              (click)="deleteFlashcard($event, card.id)"
+              aria-label="Delete flashcard"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-card>
         }
-      </mat-card-content>
-      <div class="card-actions">
-        <button
-          mat-icon-button
-          color="warn"
-          class="delete-button"
-          (click)="deleteFlashcard($event, card.id)"
-          aria-label="Delete flashcard"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
       </div>
-    </mat-card>
+    </div>
     }
   </div>
   }

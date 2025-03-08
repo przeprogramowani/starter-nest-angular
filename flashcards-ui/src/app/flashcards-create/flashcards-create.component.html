@@ -6,7 +6,7 @@
     [formGroup]="flashcardForm"
     class="flashcard-form"
   >
-    <mat-form-field appearance="fill" class="form-field">
+    <mat-form-field appearance="outline" class="form-field">
       <mat-label>Question</mat-label>
       <textarea
         matInput
@@ -26,7 +26,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="form-field">
+    <mat-form-field appearance="outline" class="form-field">
       <mat-label>Answer</mat-label>
       <textarea
         matInput
@@ -46,6 +46,23 @@
       </mat-error>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Difficulty</mat-label>
+      <mat-select formControlName="difficulty">
+        <mat-option *ngFor="let diff of difficulties" [value]="diff">
+          {{ diff | titlecase }}
+        </mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="
+          flashcardForm.get('difficulty')?.invalid &&
+          flashcardForm.get('difficulty')?.touched
+        "
+      >
+        Difficulty is required
+      </mat-error>
+    </mat-form-field>
+
     <div *ngIf="error()" class="error-message">
       {{ error() }}
     </div>
@@ -61,7 +78,7 @@
           <mat-spinner diameter="20" class="spinner-button"></mat-spinner>
           Submitting...
         </ng-container>
-        <ng-template #createLabel> Create Flashcard </ng-template>
+        <ng-template #createLabel>Create Flashcard</ng-template>
       </button>
     </div>
   </form>

@@ -1,21 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-// Interface definitions matching the DTOs from the API
-export interface CreateFlashcardDto {
-  question: string;
-  answer: string;
-}
-
-export interface UpdateFlashcardDto {
-  question?: string;
-  answer?: string;
-}
-
-export interface Flashcard extends CreateFlashcardDto {
-  id: number;
-}
+import { CreateFlashcardDto, Flashcard } from './flashcards.types';
 
 @Injectable({
   providedIn: 'root',
@@ -49,22 +35,6 @@ export class FlashcardsService {
    */
   findOne(id: number): Observable<Flashcard> {
     return this.http.get<Flashcard>(`${this.apiUrl}/${id}`);
-  }
-
-  /**
-   * Update a flashcard
-   * @param id The ID of the flashcard to update
-   * @param updateFlashcardDto The data to update the flashcard with
-   * @returns An observable with the updated flashcard
-   */
-  update(
-    id: number,
-    updateFlashcardDto: UpdateFlashcardDto
-  ): Observable<Flashcard> {
-    return this.http.patch<Flashcard>(
-      `${this.apiUrl}/${id}`,
-      updateFlashcardDto
-    );
   }
 
   /**
