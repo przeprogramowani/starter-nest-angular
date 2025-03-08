@@ -62,7 +62,7 @@ export class FlashcardsCreateComponent {
           });
           this.flashcardForm.reset();
           this.submitting.set(false);
-          this.router.navigate(['/']); // Navigate back to the list
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Error creating flashcard:', err);

@@ -11,7 +11,6 @@ export class FlashcardsService {
   ) {}
 
   create(createFlashcardDto: CreateFlashcardDto) {
-    // Map the incoming DTO to ensure we're using the API's Difficulty enum
     const mappedDto = {
       question: createFlashcardDto.question,
       answer: createFlashcardDto.answer,
