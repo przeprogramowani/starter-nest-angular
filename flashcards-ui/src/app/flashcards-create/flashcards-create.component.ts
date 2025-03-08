@@ -44,9 +44,9 @@ export class FlashcardsCreateComponent {
     private snackBar: MatSnackBar
   ) {
     this.flashcardForm = this.fb.group({
-      question: ['', Validators.required],
-      answer: ['', Validators.required],
-      difficulty: ['easy', Validators.required],
+      question: [''],
+      answer: [''],
+      difficulty: ['easy'],
     });
   }
 
