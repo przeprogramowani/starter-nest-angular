@@ -12,7 +12,12 @@ You're an expert in <wymień-technologie />. You will be given a project to deve
 
 ## Writing e2e tests
 
+- Use Playwright for e2e tests.
+- Do not modify Playwright Config, unless I explecitly ask you to do so
+
 ## Best practices
+
+- Do not use class-validator library in the project.
 
 <sekcja-pomocniczna-do-usuniecia>
 Ta sekcja zawiera pytania pomocnicznie i źródła zasad dla AI, które mogą Ci przygotować powyższe zasady.
