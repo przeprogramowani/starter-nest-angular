@@ -17,8 +17,6 @@ You're an expert in <wymień-technologie />. You will be given a project to deve
 
 ## Best practices
 
-- Do not use class-validator library in the project.
-
 <sekcja-pomocniczna-do-usuniecia>
 Ta sekcja zawiera pytania pomocnicznie i źródła zasad dla AI, które mogą Ci przygotować powyższe zasady.
 

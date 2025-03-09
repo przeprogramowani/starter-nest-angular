@@ -107,4 +107,3 @@ Remember: Good selectors should identify elements the same way a human user woul
 ## Best practices
 
 - Before using any dependency, module or library, check if it is actually present in the project - if not - don't use it without a permission
-- Do not use class-validator library in the project.
