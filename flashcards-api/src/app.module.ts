@@ -10,7 +10,9 @@ import { OpenRouterModule } from './openrouter/openrouter.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: ['.env', '.env.development'],
+    }),
     SequelizeModule.forRoot(dataBaseConfig),
     FlashcardsModule,
     OpenRouterModule,

@@ -13,8 +13,8 @@
   "license": "ISC",
   "description": "",
   "workspaces": [
-    "flashcards-ui/*",
-    "flashcards-api/*"
+    "./flashcards-ui",
+    "./flashcards-api"
   ],
   "devDependencies": {
     "@playwright/test": "^1.51.0",
