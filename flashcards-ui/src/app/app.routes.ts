@@ -1,3 +1,20 @@
 import { Routes } from '@angular/router';
+import { FlashcardsCreateComponent } from './flashcards-create/flashcards-create.component';
 
-export const routes: Routes = [];
+import { FlashcardsListComponent } from './flashcards-list/flashcards-list.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: FlashcardsListComponent,
+  },
+  {
+    path: 'create',
+    component: FlashcardsCreateComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
+];
