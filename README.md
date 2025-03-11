@@ -13,7 +13,9 @@
 2. Install dependencies:
    - `cd flashcards-ui && npm install`
    - `cd flashcards-api && npm install`
-  -  `cd .. & npm install`
+
+- `cd .. & npm install`
+
 6. Start the development server: `npm run dev`
 
 ## Local Development
@@ -40,6 +42,7 @@ npm run dev:test
 Run end-to-end tests with Playwright in another terminal:
 
 ```bash
+npx playwright install
 npm run test
 ```
 
