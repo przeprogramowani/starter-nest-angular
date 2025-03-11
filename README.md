@@ -10,8 +10,11 @@
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
+2. Install dependencies:
+   - `cd flashcards-ui && npm install`
+   - `cd flashcards-api && npm install`
+  -  `cd .. & npm install`
+6. Start the development server: `npm run dev`
 
 ## Local Development
 
