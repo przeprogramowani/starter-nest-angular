@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently 'npm run start:api' 'npm run start:ui'",
-    "dev:test": "concurrently -k 'npm run start:api:test' 'npm run start:ui'",
+    "dev": "concurrently \"npm run start:api\" \"npm run start:ui\"",
+    "dev:test": "concurrently -k \"npm run start:api:test\" \"npm run start:ui\"",
     "start:api": "cd flashcards-api && npm run start:dev",
     "start:api:test": "cd flashcards-api && cross-env DB_STORAGE_PATH=src/db/flashcards.testing.db npm run start:dev",
     "start:ui": "cd flashcards-ui && npm run start",
